@@ -1,0 +1,31 @@
+{
+  "name": "beachvolley-match-finder",
+  "version": "1.0.0",
+  "description": "FIVB World Tour match and tournament result finder",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Greg-Sam/beachvolley-match-finder.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Greg-Sam/beachvolley-match-finder/issues"
+  },
+  "homepage": "https://github.com/Greg-Sam/beachvolley-match-finder#readme",
+  "dependencies": {
+    "config": "^3.3.3",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.18"
+  },
+  "devDependencies": {
+    "concurrently": "^6.0.0",
+    "nodemon": "^2.0.7"
+  }
+}
