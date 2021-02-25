@@ -2,24 +2,23 @@ const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const config = require('config')
-// const auth = require('../middleware/auth')
+const auth = require('../middleware/auth')
 const { body, validationResult } = require('express-validator')
 
 const Admin = require('../models/Admin')
 
-// // @route   Get api/auth
-// // @desc    Get logged in admin
-// // @access  Private
-// router.get('/auth', auth, async (req, res) => {
-//   try {
-//     const admin = await Admin.findById(req.admin.id).select('-password')
-//     res.json(admin)
-//   } catch (error) {
-//     console.error(err.message)
-//     res.status(500).send('Server Error')
-//   }
-// })
+// @route   Get api/auth
+// @desc    Get logged in admin
+// @access  Private
+router.get('/auth', auth, async (req, res) => {
+  try {
+    const admin = await Admin.findById(req.admin.id).select('-password')
+    res.json(admin)
+  } catch (err) {
+    console.error(err.message)
+    res.status(500).send('Server Error')
+  }
+})
 
 // @route   Post api/auth
 // @desc    Auth admin & get token

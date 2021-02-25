@@ -1,12 +1,22 @@
 const router = require('express').Router()
-const { Player } = require('../models')
+const { Player, Admin }  = require('../models')
+const auth = require('../middleware/auth')
+const { body, validationResult } = require('express-validator')
 
 // @route   GET api/player
 // @desc    GET all data for one player
 // @access  Public
-router.get('/player', (req, res) => {
-  res.send('Get a player')
+router.get('/player/:id', async (req, res) => {
+  try {
+    const player = await Player.findById(req.params.id)
+    res.json(player)
+  } catch (error) {
+    console.error(err.message)
+    res.status(500).send('Server Error')
+  }
+
 })
+
 
 // @route   POST api/player
 // @desc    Create new player in DB
