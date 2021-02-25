@@ -1,5 +1,5 @@
 const router = require('express').Router()
-
+const { Player } = require('../models')
 
 // @route   GET api/player
 // @desc    GET all data for one player
