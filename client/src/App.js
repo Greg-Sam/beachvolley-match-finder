@@ -1,24 +1,33 @@
-import logo from './logo.svg';
+import { Fragment } from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { ThemeProvider } from '@material-ui/core'
+import theme from './theme'
+import Appbar from './components/layout/Appbar'
+import Home from './components/pages/Home'
+import About from './components/pages/About'
+
+import PlayerState from './context/player/PlayerState'
 import './App.css';
 
-function App() {
+
+const App = () => {
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <PlayerState>
+        <Router>
+          <Fragment>
+            <Appbar />
+            <Switch>
+              <Route exact path='/' component={Home} />
+              <Route exact path='/about' component={About} />
+            </Switch>
+          </Fragment>
+        </Router>
+      </PlayerState>
+    </ThemeProvider>
+
   );
 }
 
