@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { Player, Admin }  = require('../models')
+const { Player, Admin } = require('../models')
 const auth = require('../middleware/auth')
 const { body, validationResult } = require('express-validator')
 
@@ -21,10 +21,20 @@ router.get('/player/:id', async (req, res) => {
 // @route   POST api/player
 // @desc    Create new player in DB
 // @access  Private
-router.post('/player', (req, res) => {
-  res.send('Add a new player to database')
-})
+router.post('/player', auth, async (req, res) => {
 
+  const addPlayer = req.body
+
+  try {
+    const newPlayer = new Player(addPlayer)
+    console.log(newPlayer)
+    const player = await newPlayer.save()
+    res.send(`${newPlayer.name} added`)
+  } catch (err) {
+    console.error(err.messge)
+    res.status(500).send('Server Error')
+  }
+})
 // @route   PUT api/player
 // @desc    Update a player in DB
 // @access  Private

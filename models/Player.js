@@ -41,6 +41,7 @@ const Player = new Schema({
       round: String,
       partner: String,
       partnerId: String,
+      date: String,
       opponents: {
         opponentA: String,
         opponentAId: String,
@@ -51,7 +52,7 @@ const Player = new Schema({
       },
       result: {
         type: String,
-        enum: ['Win', 'Loss']
+        enum: ['Win', 'Loss', 'Win by Forfeit', 'Loss by Forfeit']
       },
       score: String,
       matchLength: String
