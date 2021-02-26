@@ -35,12 +35,43 @@ router.post('/player', auth, async (req, res) => {
     res.status(500).send('Server Error')
   }
 })
-// @route   PUT api/player
-// @desc    Update a player in DB
-// @access  Private
 
-router.put('/player', (req, res) => {
-  res.send('Update a player')
+// @route   PUT api/player
+// @desc    Update a player tournaments in DB
+// @access  Private
+router.put('/player/tournament', auth, async (req, res) => {
+console.log(req.body)
+  try {
+    let player = await Player.findOne({playerId: req.body.playerId})
+
+    if (!player) return res.status(404).json({ msg: 'Player not found' })
+
+    player = await Player.findOneAndUpdate({ playerId: req.body.playerId }, { $push: { tournaments: req.body.tournaments } })
+
+    res.send(`${player.playerId} updated`)
+  } catch (err) {
+    console.error(err.messge)
+    res.status(500).send('Server Error')
+  }
+})
+
+// @route   PUT api/player
+// @desc    Update a player matches in DB
+// @access  Private
+router.put('/player/matches', auth, async (req, res) => {
+  console.log(req.body)
+  try {
+    let player = await Player.findOne({ playerId: req.body.playerId })
+
+    if (!player) return res.status(404).json({ msg: 'Player not found' })
+
+    player = await Player.findOneAndUpdate({ playerId: req.body.playerId }, { $push: { matches: req.body.matches } })
+
+    res.send(`${player.playerId} updated`)
+  } catch (err) {
+    console.error(err.messge)
+    res.status(500).send('Server Error')
+  }
 })
 
 
