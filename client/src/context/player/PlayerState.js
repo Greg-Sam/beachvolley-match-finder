@@ -43,7 +43,7 @@ const PlayerState = props => {
 
   return (<PlayerContext.Provider
     value={{
-      player: state.player
+      players: state.players
     }}>
     {props.children}
   </PlayerContext.Provider>)
