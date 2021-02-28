@@ -15,7 +15,7 @@ const Home = () => {
         {/* will be player search bar */}
       </div>
       <div>
-        <PlayerDisplay />
+        {/* <PlayerDisplay /> */}
       </div>
       
       </Container>

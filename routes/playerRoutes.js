@@ -17,6 +17,30 @@ router.get('/player/:id', async (req, res) => {
 
 })
 
+// @route   GET api/players
+// @desc    GET all players
+// @access  Public
+router.get('/players/', async (req, res) => {
+  try {
+    let playerArray = []
+    const players = await Player.find()
+    players.map(player => (
+      playerArray.push(
+        {
+          name: player.name,
+          firstName: player.firstName,
+          lastName: player.lastName,
+          nationality: player.nationality,
+          _id: player._id
+        })
+    ))
+    res.json(playerArray)
+  } catch (error) {
+    console.error(err.message)
+    res.status(500).send('Server Error')
+  }
+})
+
 
 // @route   POST api/player
 // @desc    Create new player in DB
@@ -40,9 +64,9 @@ router.post('/player', auth, async (req, res) => {
 // @desc    Update a player tournaments in DB
 // @access  Private
 router.put('/player/tournament', auth, async (req, res) => {
-console.log(req.body)
+  console.log(req.body)
   try {
-    let player = await Player.findOne({playerId: req.body.playerId})
+    let player = await Player.findOne({ playerId: req.body.playerId })
 
     if (!player) return res.status(404).json({ msg: 'Player not found' })
 
