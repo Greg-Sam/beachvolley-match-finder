@@ -1,4 +1,5 @@
 import React, { Fragment, useContext } from 'react'
+import PlayerDisplay from './PlayerDisplay'
 import PlayerContext from '../../context/player/playerContext'
 
 const Player = () => {
@@ -9,7 +10,7 @@ const Player = () => {
     
     <Fragment>
       {players.map(player => (
-        <h3>{player.name}</h3>
+        <PlayerDisplay key={player._id} player={player} />
       ))}
     </Fragment>
   )

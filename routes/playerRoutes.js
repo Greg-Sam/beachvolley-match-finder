@@ -23,16 +23,14 @@ router.get('/player/:id', async (req, res) => {
 router.get('/players/', async (req, res) => {
   try {
     let playerArray = []
-    const players = await Player.find()
+    const players = await Player.aggregate([{
+      $project: {
+        "name": 1,
+        "nationality": 1
+      }
+    }])
     players.map(player => (
-      playerArray.push(
-        {
-          name: player.name,
-          firstName: player.firstName,
-          lastName: player.lastName,
-          nationality: player.nationality,
-          _id: player._id
-        })
+      playerArray.push(player)
     ))
     res.json(playerArray)
   } catch (error) {
@@ -41,6 +39,28 @@ router.get('/players/', async (req, res) => {
   }
 })
 
+
+// @route   GET api/aggregatetest
+// @desc    GET all players
+// @access  Public
+router.get('/aggregatetest/', async (req, res) => {
+  try {
+    let playerArray = []
+    const players = await Player.aggregate([{
+      $project: {
+        "name": 1,
+        "nationality": 1
+      }
+    }])
+    players.map(player => (
+      playerArray.push(player)
+    ))
+    res.json(playerArray)
+  } catch (error) {
+    console.error(err.message)
+    res.status(500).send('Server Error')
+  }
+})
 
 // @route   POST api/player
 // @desc    Create new player in DB

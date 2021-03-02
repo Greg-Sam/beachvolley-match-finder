@@ -1,7 +1,7 @@
-import { useReducer } from 'react'
+import React, { useReducer } from 'react'
 import axios from 'axios'
 import PlayerContext from './playerContext'
-import playerReducer from './playerReducer'
+import playerReducer from '../allPlayers/allPlayersReducer'
 import {
   ADD_PLAYER,
   UPDATE_PLAYER_MATCH,
@@ -25,7 +25,6 @@ import {
   FILTER_BY_MATCH_ROUND,
   GET_ALL_PLAYERS,
 } from '../types'
-import players from './tempPlayers'
 
 const PlayerState = props => {
   const initialState = {

@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import PlayerDisplay from '../players/PlayerDisplay'
+import InitialSearch from '../layout/InitialSearch'
 
 
 const Home = () => {
@@ -12,7 +13,7 @@ const Home = () => {
       <CssBaseline />
       <Container maxWidth="sm">
       <div>
-        {/* will be player search bar */}
+        <InitialSearch />
       </div>
       <div>
         {/* <PlayerDisplay /> */}
