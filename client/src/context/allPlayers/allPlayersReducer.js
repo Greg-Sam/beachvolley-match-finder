@@ -1,7 +1,8 @@
 import {
   CLEAR_FILTER_PLAYERS,
   FILTER_PLAYERS,
-  GET_ALL_PLAYERS
+  GET_ALL_PLAYERS,
+  SET_SEARCHING
 } from '../types'
 
 export default (state, action) => {

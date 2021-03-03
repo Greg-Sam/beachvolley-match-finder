@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
-import PlayerDisplay from '../players/PlayerDisplay'
+import PlayerDisplay from '../layout/PlayerDisplay'
 import InitialSearch from '../layout/InitialSearch'
 
 
@@ -16,7 +16,7 @@ const Home = () => {
         <InitialSearch />
       </div>
       <div>
-        {/* <PlayerDisplay /> */}
+        <PlayerDisplay />
       </div>
       
       </Container>

@@ -5,7 +5,8 @@ import allPlayersReducer from './allPlayersReducer'
 import {
   GET_ALL_PLAYERS,
   FILTER_PLAYERS,
-  CLEAR_FILTER_PLAYERS
+  CLEAR_FILTER_PLAYERS,
+  SET_SEARCHING
 } from '../types'
 
 
@@ -45,7 +46,6 @@ const AllPlayersState = props => {
   const clearFilterPlayers = () => {
     dispatch({ type: CLEAR_FILTER_PLAYERS})
   }
-
 
   return (<AllPlayersContext.Provider
     value={{

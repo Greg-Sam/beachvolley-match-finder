@@ -1,12 +1,9 @@
 import React, { useReducer } from 'react'
 import axios from 'axios'
 import PlayerContext from './playerContext'
-import playerReducer from '../allPlayers/allPlayersReducer'
+import playerReducer from './playerReducer'
 import {
-  ADD_PLAYER,
-  UPDATE_PLAYER_MATCH,
-  UPDATE_PLAYER_TOURNAMENT,
-  GET_PLAYER,
+  LOAD_PLAYER,
   GET_PARTNERS,
   GET_TOURNAMENTS,
   GET_MATCHES,
@@ -23,45 +20,40 @@ import {
   FILTER_BY_NUMBER_OF_SETS,
   FILTER_BY_MATCH_LENGTH,
   FILTER_BY_MATCH_ROUND,
-  GET_ALL_PLAYERS,
 } from '../types'
 
 const PlayerState = props => {
   const initialState = {
-    players: null,
+    player: null,
     error: null,
+    selected: false,
     loading: true
   }
 
   const [state, dispatch] = useReducer(playerReducer, initialState)
 
-  // Get all players
-  const getAllPlayers = async () => {
+  // Load player
+  const loadPlayer = async (_id) => {
     try {
-      const res = await axios.get('/api/players')
+      const res = await axios.get(`api/player/${_id}`)
 
       dispatch({
-        type: GET_ALL_PLAYERS,
-        payload: res.data 
+        type: LOAD_PLAYER,
+        payload: res.data
       })
     } catch (err) {
       console.log(err)
     }
   }
-getAllPlayers()
-  // Add player
-
-  // Update player tournament
-
-  // Update player match
-
-  // Get players
-
+ 
+ 
   // Get partners
 
   return (<PlayerContext.Provider
     value={{
-      players: state.players
+      selected: state.selected,
+      player: state.player,
+      loadPlayer,
     }}>
     {props.children}
   </PlayerContext.Provider>)
