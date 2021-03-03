@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useContext } from 'react'
 import AllPlayersContext from '../../context/allPlayers/allPlayersContext'
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField, List, ListItem, ListItemText } from '@material-ui/core';
+import { TextField, List, ListItem, ListItemText, Divider } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,13 +43,19 @@ function InitialSearch() {
       <form className={classes.root} noValidate autoComplete="off">
         <TextField id="outlined-basic" value={value} variant="outlined" label="Search for a Player" onChange={onChange} />
       </form>
-      <ul>
-        {filtered !== null ?
-          (filtered.map(player => (<li key= { player._id }>{player.name}</li>) ))
-        :
-        <div></div>
-        }
-      </ul>
+      <div className={classes.root}>
+        <List component="nav" aria-label="main mailbox folders">
+          {filtered !== null ?
+            (filtered.map(player => (
+              <ListItem button>
+                <ListItemText key={player._id} primary={player.name} />
+              </ListItem>
+            )))
+            :
+            <div>Start typig the name of a player you would like to search for.</div>
+          }
+        </List>
+      </div>
     </Fragment>
   )
 }
