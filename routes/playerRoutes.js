@@ -1,7 +1,20 @@
 const router = require('express').Router()
-const { Player, Admin } = require('../models')
+const { Player, Admin, Tournament } = require('../models')
 const auth = require('../middleware/auth')
 const { body, validationResult } = require('express-validator')
+
+// @route   GET api/playerForDisplay
+// @desc    GET player information for first display
+// @access  Public
+router.get('/playerForDisplay/:id', async (req, res) => {
+  try {
+    const player = await Player.findById(req.params.id)
+    res.json(player)
+  } catch (error) {
+    console.error(err.message)
+    res.status(500).send('Server Error')
+  }
+})
 
 // @route   GET api/player
 // @desc    GET all data for one player
@@ -14,7 +27,6 @@ router.get('/player/:id', async (req, res) => {
     console.error(err.message)
     res.status(500).send('Server Error')
   }
-
 })
 
 // @route   GET api/players
@@ -40,27 +52,6 @@ router.get('/players/', async (req, res) => {
 })
 
 
-// @route   GET api/aggregatetest
-// @desc    GET all players
-// @access  Public
-router.get('/aggregatetest/', async (req, res) => {
-  try {
-    let playerArray = []
-    const players = await Player.aggregate([{
-      $project: {
-        "name": 1,
-        "nationality": 1
-      }
-    }])
-    players.map(player => (
-      playerArray.push(player)
-    ))
-    res.json(playerArray)
-  } catch (error) {
-    console.error(err.message)
-    res.status(500).send('Server Error')
-  }
-})
 
 // @route   POST api/player
 // @desc    Create new player in DB
@@ -117,6 +108,8 @@ router.put('/player/matches', auth, async (req, res) => {
     res.status(500).send('Server Error')
   }
 })
+
+
 
 
 module.exports = router
