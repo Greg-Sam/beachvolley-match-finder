@@ -13,9 +13,10 @@ const Tournament = new Schema({
   title: String,
   name: String,
   type: Number,
-  gender: Number,
+  gender: String,
   countryCode: String,
-  endDateMainDraw: String,
+  startDate: Date,
+  endDate: Date,
   version: Number
 }
   , { timestamps: true })

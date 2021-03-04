@@ -1,5 +1,5 @@
 const router = require('express').Router()
-// const { Player, Tournament } = require('../models')
+const { Player, Tournament } = require('../models')
 const auth = require('../middleware/auth')
 const axios = require('axios')
 
@@ -36,19 +36,114 @@ var xmlTournamentRequestBody = `<?xml version="1.0" encoding="UTF-8"?>
 let tournamentArray = []
 let filteredTournaments = []
 const tournamentList = async () => {
-  const res = await axios.get('https://www.fivb.org/vis2009/XmlRequest.asmx?Request=%3CRequests%3E%3CRequest%20Type=%27GetBeachTournamentList%27%20Fields=%27Season%20Title%20Name%20Type%20Gender%20CountryCode%20EndDateMainDraw%20Version%27/%3E%3C/Requests%3E')
+  const res = await axios.get('https://www.fivb.org/vis2009/XmlRequest.asmx?Request=%3CRequests%3E%3CRequest%20Type=%27GetBeachTournamentList%27%20Fields=%27Season%20No%20EndDateMainDraw%20Title%20Name%20Type%20Gender%20EndDateMainDraw%20StartDateQualification%20StartDateMainDraw%20CountryCode%20Version%27/%3E%3C/Requests%3E')
 
   tournamentArray.push(res.data.responses[0].data)
 
-  console.log(tournamentArray)
+  filteredTypes = tournamentArray[0].map(tournament => {
+    switch (tournament.type) {
+      case 0:
+        tournament.title = 'Grand Slam'
+        filteredTournaments.push(tournament)
+        break
+      case 1:
+        tournament.title = 'Open'
+        filteredTournaments.push(tournament)
+        // console.log(tournament)
+        break
+      case 3:
+        tournament.title = 'World Series'
+        filteredTournaments.push(tournament)
+        break
+      case 4:
+        tournament.title = 'World Championship'
+        filteredTournaments.push(tournament)
+        break
+      case 32:
+        tournament.title = 'Major Series'
+        filteredTournaments.push(tournament)
+        break
+      case 32:
+        tournament.title = 'World Tour Finals'
+        filteredTournaments.push(tournament)
+        break
+      case 38:
+        tournament.title = '5 Star'
+        filteredTournaments.push(tournament)
+        break
+      case 39:
+        tournament.title = '4 Star'
+        filteredTournaments.push(tournament)
+        break
+      case 40:
+        tournament.title = '3 Star'
+        filteredTournaments.push(tournament)
+        break
+      case 41:
+        tournament.title = '2 Star'
+        filteredTournaments.push(tournament)
+        break
+      case 42:
+        tournament.title = '1 Star'
+        filteredTournaments.push(tournament)
+        // console.log(tournament)
+        break
+      default:
+    }
+  })
+
+  filteredGender = filteredTournaments.map(tournament => {
+    switch (tournament.gender) {
+      case 0:
+        tournament.gender = 'Men'
+        break
+      case 1:
+        tournament.gender = "Women"
+        break
+      default:
+    }
+  })
   
-  for (let i = 0; i <tournamentArray[0].length; i++) {
-    console.log('hi');
-  }
-  
-  myArray = [[{ number: 1 }, { number: 2 }, { number: 3 }, { number: 4 }, { number: 5 }]]
-  for (let i = 0; i < myArray[0].length; i++) {
-    console.log('hello');
-  }
+  fixEndDates = filteredTournaments.map(tournament => {
+    tournament.endDate = tournament.endDateMainDraw
+  })
+
+  fixStartDates = filteredTournaments.map(tournament => {
+    if (tournament.startDateQualification === '') {
+      tournament.startDateQualification = null
+    }
+
+    switch (tournament.startDateQualification) {
+      case null:
+        tournament.startDate = tournament.startDateMainDraw
+        break
+      case '':
+        tournament.startDate = tournament.startDateMainDraw
+        break
+      default:
+        tournament.startDate = tournament.startDateQualification
+    }
+
+    // if (tournament.startDateQualification !== '' || tournament.startDateQualification !== null) {
+    //   tournament.startDate = tournament.startDateQualification
+    // } else {
+    //   tournament.startDate = tournament.startDateMainDraw
+    // }
+  })
+  console.log(filteredTournaments)
+  // let testPost = {
+  //   "no": 4,
+  //   "season": "2009",
+  //   "title": "String"
+  // }
+
+  // await axios.post(`http://localhost:3001/api/tournament`, testPost)
+
+  // for (let i = 0; i < filteredTournaments.length; i++) {
+
+  //   await axios.post(`http://localhost:3001/api/tournament`, filteredTournaments[i])
+  // }
+
+
 }
 tournamentList()

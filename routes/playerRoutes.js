@@ -3,18 +3,6 @@ const { Player, Admin, Tournament } = require('../models')
 const auth = require('../middleware/auth')
 const { body, validationResult } = require('express-validator')
 
-// @route   GET api/playerForDisplay
-// @desc    GET player information for first display
-// @access  Public
-router.get('/playerForDisplay/:id', async (req, res) => {
-  try {
-    const player = await Player.findById(req.params.id)
-    res.json(player)
-  } catch (error) {
-    console.error(err.message)
-    res.status(500).send('Server Error')
-  }
-})
 
 // @route   GET api/player
 // @desc    GET all data for one player
@@ -56,6 +44,7 @@ router.get('/players/', async (req, res) => {
 // @route   POST api/player
 // @desc    Create new player in DB
 // @access  Private
+// **** add auth as second parameter before deploy
 router.post('/player', auth, async (req, res) => {
 
   const addPlayer = req.body

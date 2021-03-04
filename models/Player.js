@@ -11,26 +11,34 @@ const Player = new Schema({
   },
   name: String,
   gender: String,
-  nationality: String,
+  federationCode: String,
   playerId: {
-    type: String,
+    type: Number,
     required: true
   },
-  birthDate: String,
+  height: Number,
+  heightFeet: Number,
+  heigthFeet: Number,
+  birthDate: Date,
   tournaments: [
     {
       tournamentName: String,
-      tournamentId: String,
+      tournament_id: String,
+      tournamentNo: Number,
       tournamentCountry: String,
       // season Number refers to year (sometimes first tournament of a season is in the previous calender year)
-      season: Number,
-      finish: Number,
-      seed: String,
+      season: String,
+      rank: Number,
+      positionInEntry: Number,
       partnerName: String,
       partnerFirstName: String,
       partnerLastName: String,
-      partnerBVId: String,
-      date: String
+      partnerNo: Number,
+      startDate: Date,
+      endDate: Date,
+      isInMainDraw: Boolean,
+      isInQualification: Boolean,
+      earnings: Number
     }
   ],
   matches: [
