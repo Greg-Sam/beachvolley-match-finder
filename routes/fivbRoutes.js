@@ -95,10 +95,10 @@ const tournamentList = async () => {
   filteredGender = filteredTournaments.map(tournament => {
     switch (tournament.gender) {
       case 0:
-        tournament.gender = 'Men'
+        tournament.gender = 'Male'
         break
       case 1:
-        tournament.gender = "Women"
+        tournament.gender = "Female"
         break
       default:
     }
@@ -130,7 +130,7 @@ const tournamentList = async () => {
     //   tournament.startDate = tournament.startDateMainDraw
     // }
   })
-  console.log(filteredTournaments)
+  // console.log(filteredTournaments)
   // let testPost = {
   //   "no": 4,
   //   "season": "2009",
@@ -139,10 +139,10 @@ const tournamentList = async () => {
 
   // await axios.post(`http://localhost:3001/api/tournament`, testPost)
 
-  // for (let i = 0; i < filteredTournaments.length; i++) {
+  for (let i = 0; i < filteredTournaments.length; i++) {
 
-  //   await axios.post(`http://localhost:3001/api/tournament`, filteredTournaments[i])
-  // }
+    await axios.post(`http://localhost:3001/api/tournament`, filteredTournaments[i])
+  }
 
 
 }

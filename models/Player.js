@@ -14,14 +14,16 @@ const Player = new Schema({
   federationCode: String,
   playerId: {
     type: Number,
-    required: true
+    required: true,
+    unique: true
   },
   height: Number,
   heightFeet: Number,
-  heigthFeet: Number,
+  heightInches: Number,
   birthDate: Date,
   tournaments: [
     {
+      tournamentTitle: String,
       tournamentName: String,
       tournament_id: String,
       tournamentNo: Number,
@@ -29,10 +31,8 @@ const Player = new Schema({
       // season Number refers to year (sometimes first tournament of a season is in the previous calender year)
       season: String,
       rank: Number,
-      positionInEntry: Number,
+      seed: Number,
       partnerName: String,
-      partnerFirstName: String,
-      partnerLastName: String,
       partnerNo: Number,
       startDate: Date,
       endDate: Date,
