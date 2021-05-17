@@ -3,6 +3,30 @@ const { Player, Admin, Tournament } = require('../models')
 const auth = require('../middleware/auth')
 const { body, validationResult } = require('express-validator')
 
+// @route   GET api/player/fivb
+// @desc    GET a player to check if already in db using FIVB ID
+// @access  Public
+
+router.get('/player/check/:fivbId', async (req, res) => {
+  try{
+    const player = await Player.find({ 'playerId': req.params.fivbId })
+    res.json(player)
+  } catch (error) {
+    console.error(error.message)
+    res.status(500).send('Server Error')
+  }
+})
+
+router.get('/player/', async (req, res) => {
+  try {
+    const player = await Player.findById(req.params.id)
+    res.json(player)
+  } catch (error) {
+    console.error(error.message)
+    res.status(500).send('Server Error')
+  }
+})
+
 
 // @route   GET api/player
 // @desc    GET all data for one player
@@ -12,7 +36,7 @@ router.get('/player/:id', async (req, res) => {
     const player = await Player.findById(req.params.id)
     res.json(player)
   } catch (error) {
-    console.error(err.message)
+    console.error(error.message)
     res.status(500).send('Server Error')
   }
 })

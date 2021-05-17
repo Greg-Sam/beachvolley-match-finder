@@ -94,7 +94,6 @@ const getTournaments = async () => {
             }
           })
           prepTeam = actuallyPlayed.map(team => {
-            console.log(tournament.name, tournament.season, team.player1LastName)
             if (team.federationCode === 'ENG') {
               team.federationCode = 'GBR'
             } else if (team.federationCode === 'MLD') {
@@ -171,7 +170,23 @@ const getTournaments = async () => {
             player2Object.tournaments.isInMainDraw = team.isInMainDraw
             player2Object.tournaments.isInQualification = team.isInQualification
 
-            console.log(player2Object)
+            // console.log(player1Object)
+            axios.get(`http://localhost:3001/api/player/check/${player1Object.playerId}`)
+              .then((res) => { console.log('checking')
+                if (res.data[0] === undefined) {
+                  // axios.post(`http://localhost:3001/api/player/tournamentfirst`, playerA)
+                  //   .then(console.log(`${playerA.name} created in ${playerA.tournaments.tournamentName}`))
+                  console.log('new')
+                }
+                else {
+                  // axios.put(`http://localhost:3001/api/player/tournamentpush`, playerA)
+                  //   .then(console.log(`${playerA.name} updated in ${playerA.tournaments.tournamentName}`))
+                  console.log('old')
+                }
+              }
+              )
+            
+
           })
 
 
